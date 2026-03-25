@@ -6,6 +6,7 @@ use App\Models\ServiceRecord;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -13,8 +14,26 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
+        $period = $request->get('period');
         $startDate = $request->get('start_date');
         $endDate = $request->get('end_date');
+
+        if ($period === 'today') {
+            $startDate = Carbon::today()->toDateString();
+            $endDate = Carbon::today()->toDateString();
+        } elseif ($period === 'week') {
+            $startDate = Carbon::now()->startOfWeek()->toDateString();
+            $endDate = Carbon::now()->endOfWeek()->toDateString();
+        } elseif ($period === 'month') {
+            $startDate = Carbon::now()->startOfMonth()->toDateString();
+            $endDate = Carbon::now()->endOfMonth()->toDateString();
+        } elseif ($period === 'year') {
+            $startDate = Carbon::now()->startOfYear()->toDateString();
+            $endDate = Carbon::now()->endOfYear()->toDateString();
+        } elseif ($period === 'all') {
+            $startDate = null;
+            $endDate = null;
+        }
 
         $workerStats = [
             'total' => Worker::count(),
@@ -42,6 +61,7 @@ class DashboardController extends Controller
             'total_pending' => (clone $recordsQuery)->sum('pending_balance'),
             'start_date' => $startDate,
             'end_date' => $endDate,
+            'period' => $period,
         ];
 
         if ($user->hasRole('super_admin')) {
