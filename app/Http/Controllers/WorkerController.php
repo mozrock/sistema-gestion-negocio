@@ -12,13 +12,19 @@ use Illuminate\Support\Facades\Auth;
 class WorkerController extends Controller
 {
     public function index(): View
-    {
-        $this->authorizeWorkerAccess();
+{
+    $search = request('search');
 
-    $workers = Worker::latest()->paginate(10);
+    $workers = Worker::query()
+        ->when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('document', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->paginate(10);
 
-    return view('workers.index', compact('workers'));
-    }
+    return view('workers.index', compact('workers', 'search'));
+}
 
     public function create(): View
     {
@@ -73,4 +79,6 @@ class WorkerController extends Controller
 
     abort_unless($user && $user->hasAnyRole(['super_admin', 'admin']), 403);
 }
+
+
 }

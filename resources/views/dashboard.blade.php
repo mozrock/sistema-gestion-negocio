@@ -14,4 +14,28 @@
             </div>
         </div>
     </div>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <!-- Total -->
+    <div class="bg-blue-600 text-white p-6 rounded-xl shadow">
+        <h3 class="text-lg font-semibold">Total Trabajadoras</h3>
+        <p class="text-3xl mt-2">{{ $total }}</p>
+    </div>
+
+    <!-- Activas -->
+    <div class="bg-green-600 text-white p-6 rounded-xl shadow">
+        <h3 class="text-lg font-semibold">Activas</h3>
+        <p class="text-3xl mt-2">{{ $active }}</p>
+    </div>
+
+    <!-- Inactivas -->
+    <div class="bg-red-600 text-white p-6 rounded-xl shadow">
+        <h3 class="text-lg font-semibold">Inactivas</h3>
+        <p class="text-3xl mt-2">{{ $inactive }}</p>
+    </div>
+
+</div>
+
 </x-app-layout>

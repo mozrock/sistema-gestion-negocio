@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,7 +13,11 @@ class DashboardController extends Controller
         $user = $request->user();
 
         if ($user->hasRole('super_admin')) {
-            return view('dashboard.super-admin');
+            return view('dashboard.super-admin', [
+                'total' => Worker::count(),
+                'active' => Worker::where('is_active', true)->count(),
+                'inactive' => Worker::where('is_active', false)->count(),
+            ]);
         }
 
         if ($user->hasRole('admin')) {

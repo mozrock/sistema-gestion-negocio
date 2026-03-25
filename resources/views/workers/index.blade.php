@@ -9,9 +9,25 @@
                class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
                 Nueva trabajadora
             </a>
+
+            <form method="GET" action="{{ route('workers.index') }}" class="mb-4">
+    <div class="flex gap-2">
+        <input
+            type="text"
+            name="search"
+            value="{{ $search }}"
+            placeholder="Buscar por nombre o documento"
+            class="w-full rounded-md border-gray-300 dark:bg-gray-900 dark:text-white"
+        >
+
+        <button class="px-4 py-2 bg-indigo-600 text-white rounded-md">
+            Buscar
+        </button>
+    </div>
+</form>
         </div>
     </x-slot>
-
+    
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if(session('success'))
@@ -50,16 +66,13 @@
                                         Editar
                                     </a>
 
-                                    <form action="{{ route('workers.destroy', $worker) }}"
-                                          method="POST"
-                                          class="inline-block"
-                                          onsubmit="return confirm('¿Deseas eliminar esta trabajadora?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-800">
-                                            Eliminar
-                                        </button>
-                                    </form>
+                                    @role('super_admin|admin')
+    <form action="{{ route('workers.destroy', $worker) }}" method="POST" onsubmit="return confirm('¿Deseas eliminar esta trabajadora?')">
+        @csrf
+        @method('DELETE')
+        <button class="text-red-500">Eliminar</button>
+    </form>
+@endrole
                                 </td>
                             </tr>
                         @empty

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\ServiceController;
 
 
 Route::get('/', function () {
@@ -14,7 +15,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-    Route::resource('workers', WorkerController::class)
+Route::resource('workers', WorkerController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('services', ServiceController::class)
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

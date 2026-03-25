@@ -18,9 +18,19 @@ $user = $this->user();
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'document' => ['nullable', 'string', 'max:50'],
+            'document' => ['required', 'string', 'max:20', 'unique:workers,document'],
             'phone' => ['nullable', 'string', 'max:50'],
             'is_active' => ['required', 'boolean'],
         ];
     }
+
+    public function messages(): array
+{
+    return [
+        'document.unique' => 'Ya existe una trabajadora con ese documento.',
+        'name.required' => 'El nombre es obligatorio.',
+        'document.required' => 'El documento es obligatorio.',
+        'is_active.required' => 'El estado es obligatorio.',
+    ];
+}
 }

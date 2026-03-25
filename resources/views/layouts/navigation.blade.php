@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('workers.index')" :active="request()->routeIs('workers.*')">
     Trabajadoras
 </x-nav-link>
+<x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')">
+    Servicios
+</x-nav-link>
                 </div>
                 
             </div>

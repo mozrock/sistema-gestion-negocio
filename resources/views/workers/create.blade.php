@@ -19,10 +19,28 @@
                             Cancelar
                         </a>
 
-                        <button type="submit"
-                                class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
-                            Guardar
-                        </button>
+          <button
+        type="submit"
+        id="btnGuardar"
+        class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
+    >
+        Guardar
+    </button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const btnGuardar = document.getElementById('btnGuardar');
+
+        if (form && btnGuardar) {
+            form.addEventListener('submit', function () {
+                btnGuardar.disabled = true;
+                btnGuardar.innerText = 'Guardando...';
+            });
+        }
+    });
+</script>
                     </div>
                 </form>
             </div>
