@@ -16,11 +16,15 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('workers.index')" :active="request()->routeIs('workers.*')">
-    Trabajadoras
-</x-nav-link>
-<x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')">
-    Servicios
-</x-nav-link>
+                        Trabajadoras
+                    </x-nav-link>
+                    <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')">
+                        Servicios
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('payment-methods.index')" :active="request()->routeIs('payment-methods.*')">
+                        Medios de pago
+                    </x-nav-link>
                 </div>
                 
             </div>

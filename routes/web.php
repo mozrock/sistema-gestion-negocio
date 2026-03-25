@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PaymentMethodController;
 
 
 Route::get('/', function () {
@@ -19,6 +20,9 @@ Route::resource('workers', WorkerController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('services', ServiceController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('payment-methods', PaymentMethodController::class)
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
