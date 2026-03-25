@@ -25,6 +25,10 @@
                     <x-nav-link :href="route('payment-methods.index')" :active="request()->routeIs('payment-methods.*')">
                         Medios de pago
                     </x-nav-link>
+
+                    <x-nav-link :href="route('service-records.index')" :active="request()->routeIs('service-records.*')">
+                        Registros
+                    </x-nav-link>
                 </div>
                 
             </div>

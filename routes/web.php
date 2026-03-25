@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ServiceRecordController;
 
 
 Route::get('/', function () {
@@ -23,6 +24,9 @@ Route::resource('services', ServiceController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('payment-methods', PaymentMethodController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('service-records', ServiceRecordController::class)
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
