@@ -170,6 +170,14 @@
                     Hola, {{ auth()->user()->name }}. Este es el panel de Super Admin.
                 </p>
             </div>
+
+            <a href="{{ route('reports.workers.index') }}"
+   class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 block hover:scale-105 transition">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Reporte trabajadoras</h3>
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
+        Resumen financiero detallado por trabajadora.
+    </p>
+</a>
         </div>
     </div>
 </x-app-layout>

@@ -7,6 +7,9 @@ use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\ServiceRecordController;
+use App\Http\Controllers\WorkerReportController;
+use App\Http\Controllers\ServiceReportController;
+
 
 
 Route::get('/', function () {
@@ -28,6 +31,14 @@ Route::resource('payment-methods', PaymentMethodController::class)
 
 Route::resource('service-records', ServiceRecordController::class)
     ->middleware(['auth', 'verified']);
+
+Route::get('/reports/workers', [WorkerReportController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('reports.workers.index');
+
+Route::get('/reports/services', [ServiceReportController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('reports.services.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

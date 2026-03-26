@@ -29,6 +29,9 @@
                     <x-nav-link :href="route('service-records.index')" :active="request()->routeIs('service-records.*')">
                         Registros
                     </x-nav-link>
+                    <x-nav-link :href="route('reports.services.index')" :active="request()->routeIs('reports.services.*')">
+                        Reporte servicios
+                    </x-nav-link>
                 </div>
                 
             </div>
