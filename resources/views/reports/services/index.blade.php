@@ -8,57 +8,74 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <form action="{{ route('reports.services.index') }}" method="GET">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                        <div>
-                            <label for="service_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Servicio
-                            </label>
-                            <select name="service_id" id="service_id"
-                                class="w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
-                                <option value="">Todos</option>
-                                @foreach ($services as $service)
-                                    <option value="{{ $service->id }}"
-                                        {{ request('service_id') == $service->id ? 'selected' : '' }}>
-                                        {{ $service->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+           <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mb-6">
+    <div class="flex flex-col lg:flex-row lg:items-end gap-4">
+        <form action="{{ route('reports.services.index') }}" method="GET" class="flex-1">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label for="service_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Servicio
+                    </label>
+                    <select name="service_id" id="service_id"
+                            class="w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
+                        <option value="">Todos</option>
+                        @foreach ($services as $service)
+                            <option value="{{ $service->id }}" {{ request('service_id') == $service->id ? 'selected' : '' }}>
+                                {{ $service->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-                        <div>
-                            <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Fecha inicio
-                            </label>
-                            <input type="date" name="start_date" id="start_date"
-                                value="{{ request('start_date') }}"
-                                class="w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
-                        </div>
+                <div>
+                    <label for="start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Fecha inicio
+                    </label>
+                    <input type="date"
+                           name="start_date"
+                           id="start_date"
+                           value="{{ request('start_date') }}"
+                           class="w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
+                </div>
 
-                        <div>
-                            <label for="end_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Fecha fin
-                            </label>
-                            <input type="date" name="end_date" id="end_date"
-                                value="{{ request('end_date') }}"
-                                class="w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
-                        </div>
+                <div>
+                    <label for="end_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Fecha fin
+                    </label>
+                    <input type="date"
+                           name="end_date"
+                           id="end_date"
+                           value="{{ request('end_date') }}"
+                           class="w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
+                </div>
 
-                        <div class="flex gap-2">
-                            <button type="submit"
-                                class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
-                                Filtrar
-                            </button>
+                <div class="flex items-end gap-2">
+                    <button type="submit"
+                            class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
+                        Filtrar
+                    </button>
 
-                            <a href="{{ route('reports.services.index') }}"
-                                class="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600">
-                                Limpiar
-                            </a>
-                        </div>
-                    </div>
-                </form>
+                    <a href="{{ route('reports.services.index') }}"
+                       class="px-4 py-2 rounded-md bg-gray-500 text-white hover:bg-gray-600">
+                        Limpiar
+                    </a>
+                </div>
             </div>
+        </form>
+
+        <form action="{{ route('reports.services.index') }}" method="GET">
+            <input type="hidden" name="service_id" value="{{ request('service_id') }}">
+            <input type="hidden" name="start_date" value="{{ request('start_date') }}">
+            <input type="hidden" name="end_date" value="{{ request('end_date') }}">
+            <input type="hidden" name="export" value="excel">
+
+            <button type="submit"
+                    class="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700 whitespace-nowrap">
+                Exportar Excel
+            </button>
+        </form>
+    </div>
+</div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">

@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ServiceReportExport;
 use App\Models\Service;
 use App\Models\ServiceRecord;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ServiceReportController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request): View|BinaryFileResponse
     {
         $services = Service::where('is_active', true)
             ->orderBy('name')
@@ -42,7 +45,7 @@ class ServiceReportController extends Controller
         $saldoPendiente = $records->sum('pending_balance');
 
         $ranking = $records
-            ->groupBy(fn ($record) => $record->service->name ?? 'Sin servicio')
+            ->groupBy(fn ($record) => $record->service->name ?? 'Sin nombre')
             ->map(function ($items, $serviceName) {
                 return [
                     'servicio' => $serviceName,
@@ -56,6 +59,20 @@ class ServiceReportController extends Controller
                 ];
             })
             ->sortByDesc('facturado');
+
+        if ($request->filled('export') && $request->export === 'excel') {
+            return Excel::download(
+                new ServiceReportExport($records, [
+                    'totalFacturado' => $totalFacturado,
+                    'totalDescuentos' => $totalDescuentos,
+                    'neto' => $neto,
+                    'totalDueno' => $totalDueno,
+                    'totalTrabajadora' => $totalTrabajadora,
+                    'saldoPendiente' => $saldoPendiente,
+                ]),
+                'reporte_servicios_' . now()->format('Y-m-d_H-i-s') . '.xlsx'
+            );
+        }
 
         return view('reports.services.index', [
             'services' => $services,
